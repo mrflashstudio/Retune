@@ -13,7 +13,7 @@ cmake --build build --config Release
 
 ## Using Resonance Patcher
 
-1. Place `bcrypt.dll` beside `rhythia.exe`.
+1. Download `bcrypt.dll` from the [latest release](https://github.com/mrflashstudio/ResonancePatcher/releases/latest) and place it beside `rhythia.exe`.
 2. Add `--resonance-server example.com` to Rhythia's Steam launch options, replacing `example.com` with your server's domain.
 3. Launch the game.
 
