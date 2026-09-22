@@ -1,18 +1,21 @@
-name: Build and release
+name: Build
 
 on:
   push:
     branches: ['**']
-    tags: ['v*']
+    tags: ['**']
   pull_request:
   workflow_dispatch:
+    inputs:
+      release_tag:
+        required: false
+        type: string
 
 permissions:
   contents: read
 
 jobs:
   build:
-    name: Windows x64
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v6
@@ -25,35 +28,51 @@ jobs:
       - name: Build
         run: cmake --build build --config Release
 
-      - name: Upload DLL
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
-          name: ResonancePatcher-windows-x64
+          name: bcrypt
           path: build/Release/bcrypt.dll
           if-no-files-found: error
 
   release:
-    name: Draft release
     needs: build
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    if: >-
+      (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')) ||
+      (github.event_name == 'workflow_dispatch' && inputs.release_tag != '')
     runs-on: ubuntu-latest
     permissions:
       contents: write
     concurrency:
-      group: release-${{ github.ref }}
+      group: release-${{ inputs.release_tag || github.ref_name }}
       cancel-in-progress: false
     steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
       - uses: actions/download-artifact@v4
         with:
-          name: ResonancePatcher-windows-x64
+          name: bcrypt
           path: release
 
-      - name: Create or update draft
+      - name: Release
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ inputs.release_tag || github.ref_name }}
         run: |
+          commit=$(git rev-parse HEAD)
+          if tagged_commit=$(git rev-parse --verify "refs/tags/$RELEASE_TAG^{commit}" 2>/dev/null); then
+            if [ "$tagged_commit" != "$commit" ]; then
+              echo "Tag points to a different commit. Choose a new tag or run from that tag."
+              exit 1
+            fi
+          else
+            gh api --method POST "repos/$GH_REPO/git/refs" \
+              --raw-field "ref=refs/tags/$RELEASE_TAG" --raw-field "sha=$commit"
+          fi
+
           if draft=$(gh release view "$RELEASE_TAG" --json isDraft --jq .isDraft); then
             if [ "$draft" != "true" ]; then
               echo "Release already published; refusing to replace its asset."
