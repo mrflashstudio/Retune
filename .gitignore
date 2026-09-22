@@ -1,0 +1,10 @@
+/build/
+/cmake-build-*/
+/out/
+
+/.idea/
+/.vs/
+/CMakeUserPresets.json
+
+*.tmp
+*.tmp[0-9]*
