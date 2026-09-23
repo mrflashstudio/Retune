@@ -3,7 +3,7 @@
 #include "EndpointPatch.h"
 #include "Failure.h"
 
-namespace Resonance::Game
+namespace Retune::Game
 {
 	Failure ApplyEndpoints(EndpointPatch& patch);
 }

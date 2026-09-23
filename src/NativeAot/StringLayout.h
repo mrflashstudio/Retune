@@ -3,7 +3,7 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace Resonance::NativeAot
+namespace Retune::NativeAot
 {
 	struct StringLayout
 	{

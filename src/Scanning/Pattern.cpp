@@ -1,7 +1,7 @@
 #include "Pattern.h"
 #include <cstring>
 
-namespace Resonance::Scanning
+namespace Retune::Scanning
 {
 	int Pattern::HexDigit(char character)
 	{

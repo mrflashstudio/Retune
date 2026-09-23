@@ -5,7 +5,7 @@
 #include <span>
 #include <string_view>
 
-namespace Resonance::NativeAot
+namespace Retune::NativeAot
 {
 	struct FrozenString
 	{

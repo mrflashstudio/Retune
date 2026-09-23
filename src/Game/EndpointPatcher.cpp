@@ -6,7 +6,7 @@
 #include "EndpointWriter.h"
 #include <atomic>
 
-namespace Resonance::Game
+namespace Retune::Game
 {
 	void EndpointPatcher::RequireSuccess(Failure failure)
 	{

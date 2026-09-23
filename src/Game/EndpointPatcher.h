@@ -4,7 +4,7 @@
 #include "Failure.h"
 #include <atomic>
 
-namespace Resonance::Game
+namespace Retune::Game
 {
 	class EndpointPatcher
 	{

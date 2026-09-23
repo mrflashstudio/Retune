@@ -7,7 +7,7 @@
 #include <string>
 #include <string_view>
 
-namespace Resonance::Browser
+namespace Retune::Browser
 {
 	class ShellLink
 	{

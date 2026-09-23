@@ -2,7 +2,7 @@
 #include "ServerArguments.h"
 #include <shellapi.h>
 
-namespace Resonance::Arguments
+namespace Retune::Arguments
 {
 	bool IsDomain(std::wstring_view value)
 	{

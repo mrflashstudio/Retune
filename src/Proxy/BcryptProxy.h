@@ -4,7 +4,7 @@
 #include <atomic>
 #include <bcrypt.h>
 
-namespace Resonance::Proxy
+namespace Retune::Proxy
 {
 	inline constexpr wchar_t systemLibrarySuffix[] = L"\\bcrypt.dll";
 	inline std::atomic<HMODULE> systemModule{nullptr};

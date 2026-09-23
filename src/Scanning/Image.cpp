@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <cstring>
 
-namespace Resonance::Scanning
+namespace Retune::Scanning
 {
 	bool Image::Open(const HMODULE module)
 	{

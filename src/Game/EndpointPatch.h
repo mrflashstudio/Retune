@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <string_view>
 
-namespace Resonance::Game
+namespace Retune::Game
 {
 	struct Endpoint
 	{

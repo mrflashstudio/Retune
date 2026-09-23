@@ -6,7 +6,7 @@
 #include <span>
 #include <string_view>
 
-namespace Resonance::Scanning
+namespace Retune::Scanning
 {
 	class Pattern
 	{

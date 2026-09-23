@@ -2,7 +2,7 @@
 
 #include <string_view>
 
-namespace Resonance::Arguments
+namespace Retune::Arguments
 {
 	inline constexpr std::size_t maxDomainLength = 253;
 	inline constexpr std::size_t maxLabelLength = 63;

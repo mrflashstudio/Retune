@@ -5,7 +5,7 @@
 #include <cstring>
 #include <limits>
 
-namespace Resonance::Browser
+namespace Retune::Browser
 {
 	bool ShellLink::Rewrite(std::wstring_view url, std::wstring& replacement)
 	{

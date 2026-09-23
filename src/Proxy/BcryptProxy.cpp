@@ -11,7 +11,7 @@
 
 #include "../Game/EndpointPatcher.h"
 
-namespace Resonance::Proxy
+namespace Retune::Proxy
 {
 	FARPROC ResolveRandom()
 	{
@@ -71,7 +71,7 @@ namespace Resonance::Proxy
 #else
 		void* caller = __builtin_extract_return_addr(__builtin_return_address(0));
 #endif
-		Resonance::Game::EndpointPatcher::TryInitialize(caller);
+		Retune::Game::EndpointPatcher::TryInitialize(caller);
 		const auto address = ResolveRandom();
 
 		if (!address)

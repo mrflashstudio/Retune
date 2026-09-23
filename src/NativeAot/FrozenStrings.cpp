@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <cstring>
 
-namespace Resonance::NativeAot
+namespace Retune::NativeAot
 {
 	FrozenStrings::~FrozenStrings()
 	{

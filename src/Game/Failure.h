@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-namespace Resonance::Game
+namespace Retune::Game
 {
 	enum class Failure : std::uint32_t
 	{

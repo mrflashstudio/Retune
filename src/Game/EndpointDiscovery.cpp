@@ -4,7 +4,7 @@
 #include "../Scanning/Image.h"
 #include <cstring>
 
-namespace Resonance::Game
+namespace Retune::Game
 {
 	bool DiscoverRuntime(const Scanning::Image& image, EndpointPatch& patch)
 	{

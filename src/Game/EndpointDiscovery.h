@@ -4,7 +4,7 @@
 #include "EndpointPatch.h"
 #include "Failure.h"
 
-namespace Resonance::Game
+namespace Retune::Game
 {
 	inline constexpr std::string_view registrationPattern =
 		"48 83 EC ?? 48 89 4C 24 ?? 48 8B 0D ?? ?? ?? ?? 48 89 54 24 ?? 48 8D 54 24 ?? "

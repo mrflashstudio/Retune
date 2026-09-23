@@ -4,7 +4,7 @@
 #include <cstring>
 #include <limits>
 
-namespace Resonance::Game
+namespace Retune::Game
 {
 	Failure ApplyEndpoints(EndpointPatch& patch)
 	{
