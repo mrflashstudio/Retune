@@ -1,6 +1,7 @@
 #include <windows.h>
 #include "EndpointPatcher.h"
 #include "../Arguments/ServerArguments.h"
+#include "../Browser/ShellLink.h"
 #include "EndpointDiscovery.h"
 #include "EndpointWriter.h"
 #include <atomic>
@@ -32,6 +33,9 @@ namespace Resonance::Game
 
 		RequireSuccess(PrepareEndpoints(GetModuleHandleW(nullptr), server.domain, patch));
 		RequireSuccess(ApplyEndpoints(patch));
+
+		if (!Browser::ShellLink::Install(server.domain))
+			RequireSuccess(Failure::Browser);
 
 		return State::Applied;
 	}

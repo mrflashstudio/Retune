@@ -14,6 +14,7 @@ add_library(ResonancePatcher SHARED
     src/Proxy/BcryptProxy.cpp
     src/Game/EndpointPatcher.cpp
     src/Game/EndpointDiscovery.cpp
+    src/Browser/ShellLink.cpp
     src/Game/EndpointWriter.cpp
     src/NativeAot/FrozenStrings.cpp
     src/Arguments/ServerArguments.cpp

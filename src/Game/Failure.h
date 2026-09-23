@@ -11,6 +11,7 @@ namespace Resonance::Game
 		Discovery,
 		Memory,
 		Registration,
-		ConcurrentInitialization
+		ConcurrentInitialization,
+		Browser
 	};
 }
