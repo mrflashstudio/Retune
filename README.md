@@ -1,6 +1,6 @@
 # Retune
 
-A (Capo)Rhythia server switcher, built specifically for [Resonance](https://github.com/mrflashstudio/Resonance) private servers.
+A server switcher for [Rhythia](https://www.rhythia.com/), built specifically for [Resonance](https://github.com/mrflashstudio/Resonance) private servers.
 
 ## Building Retune
 
