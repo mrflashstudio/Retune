@@ -1,12 +1,10 @@
 #pragma once
 
-#include "EndpointPatch.h"
-#include "Failure.h"
 #include <atomic>
 
 namespace Retune::Game
 {
-	class EndpointPatcher
+	class Patcher
 	{
 		enum class State
 		{
@@ -17,14 +15,12 @@ namespace Retune::Game
 		};
 
 		static inline std::atomic<State> state{State::Uninitialized};
-		static inline EndpointPatch patch;
 
-		static void RequireSuccess(Failure failure);
 		static State Initialize();
 		static bool IsGameCaller(const void* address);
 
 	public:
-		EndpointPatcher() = delete;
+		Patcher() = delete;
 		static void TryInitialize(const void* returnAddress);
 	};
 }

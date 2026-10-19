@@ -3,13 +3,14 @@
 #include <bcrypt.h>
 #include <bit>
 #include <cstddef>
+#include <iterator>
 #include <type_traits>
 #if defined(_MSC_VER)
 #include "Exports/Bcrypt.h"
 #include <intrin.h>
 #endif
 
-#include "../Game/EndpointPatcher.h"
+#include "../Game/Patcher.h"
 
 namespace Retune::Proxy
 {
@@ -71,7 +72,7 @@ namespace Retune::Proxy
 #else
 		void* caller = __builtin_extract_return_addr(__builtin_return_address(0));
 #endif
-		Retune::Game::EndpointPatcher::TryInitialize(caller);
+		Retune::Game::Patcher::TryInitialize(caller);
 		const auto address = ResolveRandom();
 
 		if (!address)

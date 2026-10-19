@@ -12,6 +12,9 @@ namespace Retune::Game
 		Memory,
 		Registration,
 		ConcurrentInitialization,
-		Browser
+		Hooks
 	};
+
+	[[noreturn]] void Fail(Failure failure);
+	void RequireSuccess(Failure failure);
 }

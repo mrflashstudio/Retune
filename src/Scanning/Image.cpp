@@ -77,23 +77,6 @@ namespace Retune::Scanning
 		return count != 0;
 	}
 
-	bool Image::Contains(const void* address, std::size_t size, bool executable) const
-	{
-		const auto value = reinterpret_cast<std::uintptr_t>(address);
-
-		for (std::size_t i = 0; i < count; ++i)
-		{
-			const auto& range = ranges[i];
-			const auto start = reinterpret_cast<std::uintptr_t>(range.address);
-
-			if ((!executable || range.executable) && value >= start && value - start <= range.size &&
-				size <= range.size - (value - start))
-				return true;
-		}
-
-		return false;
-	}
-
 	std::uint8_t* Image::FindUnique(const std::string_view pattern, const bool executable) const
 	{
 		std::uint8_t* result = nullptr;
@@ -124,69 +107,25 @@ namespace Retune::Scanning
 		return result;
 	}
 
-	std::uint8_t* Image::FindString(const std::wstring_view value) const
+	std::vector<std::uint8_t*> Image::FindAll(const std::string_view pattern, const bool executable) const
 	{
-		std::uint8_t* result = nullptr;
+		std::vector<std::uint8_t*> result;
+		const auto parsed = Pattern::Parse(pattern);
 
-		if (value.empty() || value.size() > (SIZE_MAX / sizeof(wchar_t)) - 1)
-			return nullptr;
-
-		const auto length = (value.size() + 1) * sizeof(wchar_t);
+		if (!parsed)
+			return result;
 
 		for (std::size_t i = 0; i < count; ++i)
 		{
-			const auto& range = ranges[i];
-
-			if (range.executable || range.size < length)
+			if (ranges[i].executable != executable)
 				continue;
 
-			for (std::size_t offset = 0; offset <= range.size - length; offset += 2)
+			auto remaining = std::span<const std::uint8_t>(ranges[i].address, ranges[i].size);
+
+			while (const auto match = parsed->FindFirst(remaining))
 			{
-				if (range.address[offset] != static_cast<std::uint8_t>(value.front()) ||
-					std::memcmp(range.address + offset, value.data(), value.size() * sizeof(wchar_t)) ||
-					range.address[offset + length - 2] || range.address[offset + length - 1])
-					continue;
-
-				if (result)
-					return nullptr;
-
-				result = range.address + offset;
-			}
-		}
-
-		return result;
-	}
-
-	std::uint8_t* Image::FindReference(const void* target) const
-	{
-		std::uint8_t* result = nullptr;
-
-		for (std::size_t i = 0; i < count; ++i)
-		{
-			const auto& range = ranges[i];
-
-			if (!range.executable || range.size < 7)
-				continue;
-
-			for (std::size_t offset = 0; offset <= range.size - 7; ++offset)
-			{
-				auto instruction = range.address + offset;
-
-				if ((instruction[0] != 0x48 && instruction[0] != 0x4C) || instruction[1] != 0x8D ||
-					(instruction[2] & 0xC7) != 0x05)
-					continue;
-
-				std::int32_t displacement;
-				std::memcpy(&displacement, instruction + 3, sizeof(displacement));
-
-				if (reinterpret_cast<std::intptr_t>(instruction + 7) + displacement !=
-					reinterpret_cast<std::intptr_t>(target))
-					continue;
-
-				if (result)
-					return nullptr;
-
-				result = instruction;
+				result.push_back(const_cast<std::uint8_t*>(match));
+				remaining = remaining.subspan(static_cast<std::size_t>(match - remaining.data()) + 1);
 			}
 		}
 

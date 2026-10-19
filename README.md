@@ -24,3 +24,7 @@ There are multiple ways to disable or uninstall Retune:
 - Remove `--resonance-server` and its value from Steam launch options.
 - Rename the installed `bcrypt.dll` file to something else, for example, `bcrypt.dll.disabled`.
 - Delete the installed `bcrypt.dll` file to uninstall the patcher.
+
+## Acknowledgements
+
+Retune uses [MinHook](https://github.com/TsudaKageyu/minhook), distributed under its [license](vendor/minhook/LICENSE.txt).
