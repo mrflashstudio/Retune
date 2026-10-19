@@ -35,7 +35,7 @@ namespace Retune::Game
 
 		const auto size = targets.decoders.size() * adapterStride;
 		const auto hooks =
-			static_cast<std::uint8_t*>(VirtualAlloc(nullptr, size, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE));
+			static_cast<std::uint8_t*>(VirtualAlloc(nullptr, size, MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE));
 
 		if (!hooks)
 			return Failure::Memory;
